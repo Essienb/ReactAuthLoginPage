@@ -1,10 +1,17 @@
-import {Link} from "react-router-dom";
-import axios from "axios";
+import {Link, useNavigate} from "react-router-dom";
 import {useState} from "react";
+import {axiosReqCredentials} from "../../Api/Axios";
+import useAuthentication from "../../Hooks/useAuthentication";
+
 
 function Login(){
+    //useNavigate to redirect page
+    const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
+
+    //to set the Auth token
+    const {setAuth} = useAuthentication();
 
     async function handleLoginRequest(event){
         event.preventDefault();
@@ -16,12 +23,16 @@ function Login(){
 
         try{
             setErrorMessage("");
-            const loginToPage = await axios.post("http://localhost:5009/auth/login",
-                JSON.stringify(loginDTO),{
-                headers:{"Content-Type": "application/json"},
-                withCredentials: true});
+            const loginToPage = await axiosReqCredentials.post("/auth/login",
+                JSON.stringify(loginDTO));
             console.log(loginToPage.data);
             setSuccessMessage(loginToPage.data.message);
+            setAuth({accessToken: loginToPage.data.token});
+            console.log(loginToPage.data.token);
+            setTimeout(()=>{
+                //calling the useNavigate
+                navigate("/Welcome");
+            }, 3000);
 
         } catch(err){
             console.log(err);
@@ -57,7 +68,8 @@ function Login(){
                     &nbsp; &nbsp;
                     <Link to="/Register">Register react Style</Link>
                     <br />
-                    <Link to="/ForgotPassword">Forgot Password</Link>
+                    <Link to="/ResetPassword">Change Password</Link>
+                    {/*<Link to="/ForgotPassword">Forgot Password</Link>*/}
 
                 </form>
             </div>

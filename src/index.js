@@ -4,13 +4,17 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from "react-router-dom";
+import {AuthProvider} from "./Context/AuthProvider";
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <BrowserRouter>
         <React.StrictMode>
-            <App />
+            //This allows global access to the AuthContext
+            <AuthProvider>
+                < App />
+            </AuthProvider>
         </React.StrictMode>
     </BrowserRouter>
 

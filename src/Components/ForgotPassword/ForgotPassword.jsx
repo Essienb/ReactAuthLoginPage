@@ -1,6 +1,6 @@
 import {useState} from "react";
-import axios from "axios";
 import {Link, useNavigate} from "react-router-dom";
+import {axiosReqCredentials} from "../../Api/Axios";
 
 
 function ForgotPassword(){
@@ -18,10 +18,8 @@ function ForgotPassword(){
 
         try{
             setErrorMessage("");
-            const forgotPasswordPage = await axios.post("http://localhost:5009/forgotpassword",
-                JSON.stringify(forgotPasswordDTO),{
-                    headers:{"Content-Type": "application/json"},
-                    withCredentials: true});
+            const forgotPasswordPage = await axiosReqCredentials.post("/forgotpassword",
+                JSON.stringify(forgotPasswordDTO));
             console.log(forgotPasswordPage.data);
             setSuccessMessage(forgotPasswordPage.data.message);
             setTimeout(()=>{
@@ -54,13 +52,13 @@ function ForgotPassword(){
 
                     <button className="btn btn-primary">Submit</button>
                     <br /> <br />
-                    <a href="/Register">Register html style</a>
+                    {/*<a href="/Register">Register html style</a>*/}
                     &nbsp; &nbsp;
-                    <Link to="/Register">Register react Style</Link>
-                    <br />
-                    <Link to="/ResetPassword">Change Password</Link>
-                    <br />
-                    <Link to="/Login">Login</Link>
+                    {/*<Link to="/Register">Register react Style</Link>*/}
+                    {/*<br />*/}
+                    {/*<Link to="/ResetPassword">Change Password</Link>*/}
+                    {/*<br />*/}
+                    {/*<Link to="/Login">Login</Link>*/}
 
                 </form>
             </div>
