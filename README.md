@@ -1,4 +1,9 @@
 # Getting Started with Create React App
+TODO:
+Authentication - Persistence Login
+Setup of Cookies
+How to secure User Information
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
